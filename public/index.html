@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-6 w-full max-w-md text-center">
+        <h1 class="text-2xl font-semibold mb-4">Doctor Availability</h1>
+
+        <div class="space-y-3">
+            <button onclick="sendStatus('Available')" 
+                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-all">
+                ✅ I'm Available
+            </button>
+            <button onclick="sendStatus('Unavailable')" 
+                class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-all">
+                ❌ I'm Not Available
+            </button>
+        </div>
+
+        <h2 class="text-xl font-semibold mt-6">Send a Custom Notification</h2>
+        <input type="text" id="customMessage" 
+            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg mt-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" 
+            placeholder="Enter notification message">
+        <button onclick="sendCustomNotification()" 
+            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-3 transition-all">
+            📢 Send Notification
+        </button>
+    </div>
+
+    <script>
+        function sendStatus(status) {
+            fetch("/update-status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: status }),
+            }).then(() => {
+                alert(
+                    status === "Available"
+                        ? "The doctor is now available for consultations. डॉक्टर आता तपासणी साठी उपलब्ध आहेत. डॉक्टर अब जांच के लिए उपलब्ध है।"
+                        : "The doctor is currently unavailable. Please check back later or call for an appointment. सध्या डॉक्टर उपलब्ध नाहीत. कृपया नंतर तपासा किंवा भेट करीता कॉल करा. फिलहाल डॉक्टर उपलब्ध नहीं है। कृपया बाद में चेक करें या मुलाकात के लिए कॉल करें।"
+                );
+            });
+        }
+
+        function sendCustomNotification() {
+            const message = document.getElementById("customMessage").value;
+            fetch("/send-notification", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: message }),
+            }).then(() => alert("Notification Sent"));
+        }
+    </script>
+</body>
+</html>
