@@ -4,9 +4,10 @@
   "description": "A doctor availability and notification system",
   "main": "server.js",
   "dependencies": {
-    "express": "^5.1.0",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "body-parser": "^1.20.2"
+    "express": "^5.1.0",
+    "nodemailer": "^6.10.0"
   },
   "scripts": {
     "start": "node server.js"
