@@ -1,12 +1,17 @@
 {
+  "name": "doctor-automation",
+  "version": "1.0.0",
+  "description": "A doctor availability and notification system",
+  "main": "server.js",
   "dependencies": {
-    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
-  }
+    "body-parser": "^1.20.2"
+  },
   "scripts": {
-  "start": "node server.js",
-  "build": "echo 'No build step needed'"
-}
-
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }
